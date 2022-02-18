@@ -5,6 +5,9 @@ use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\LoginController;
+use App\Http\Controllers\Frontend\UserController as FrontendUserController;
+use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +28,19 @@ use Illuminate\Support\Facades\Route;
 
 // frontend
 Route::get('/', [HomeController::class, 'index']);
+// Login
+Route::get('/home/login', [LoginController::class, 'index']);
+Route::post('/home/login', [LoginController::class, 'postLogin'])->name('postLogin');
+// Register
+Route::get('/home/register', [FrontendUserController::class, 'index']);
+Route::post('/home/register', [FrontendUserController::class, 'register'])->name('postRegister');
+// Blog
+Route::get('/home/blog/list', [FrontendBlogController::class, 'index']);
+Route::get('/home/blog/single/{id}', [FrontendBlogController::class, 'blogDetail'])->name('blogSingle');
+
+
+
+
 
 // admin
 Auth::routes();

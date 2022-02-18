@@ -65,7 +65,9 @@
                                         <tr>
                                             <th scope="row">{{$number}}</th>
                                             <td>{{ $blog->title }}</td>
-                                            <td>{{ $blog->image }}</td>
+                                            <td>
+                                                <img style="width:100px; heigth: 100px;" src="upload/blog/{{ $blog->image }}">
+                                            </td>
                                             <td>{{ $blog->description }}</td>
                                             <td>
                                                 <a href="{{ route('blog.edit', $blog->id) }}">

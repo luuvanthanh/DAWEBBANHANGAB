@@ -17,5 +17,17 @@
     <script src={{ asset('admin/dist/js/pages/dashboards/dashboard1.js') }}></script>
     <!-- CKEDITOR -->
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script> CKEDITOR.replace('demo'); </script>
+    <script> CKEDITOR.replace( 'demo', {
+        filebrowserBrowseUrl: '{{ asset('ckfinder/ckfinder/ckfinder.html') }}',
+        filebrowserImageBrowseUrl: '{{ asset('ckfinder/ckfinder/ckfinder.html?type=Images') }}',
+        filebrowserFlashBrowseUrl: '{{ asset('ckfinder/ckfinder/ckfinder.html?type=Flash') }}',
+        filebrowserUploadUrl: '{{ asset('ckfinder/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}',
+        filebrowserImageUploadUrl: '{{ asset('ckfinder/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}',
+        filebrowserFlashUploadUrl: '{{ asset('ckfinder/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
+    } );
+ </script>
+
+   
+    
+
  
