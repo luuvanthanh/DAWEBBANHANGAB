@@ -19,7 +19,7 @@
     <div class="container">
         <div class="row">
             <!-- sidebar -->
-            @include('frontend.layouts.sidebar')
+            @include('frontend.layouts.sidebar-account')
 
             <!-- content -->
             @yield('content')

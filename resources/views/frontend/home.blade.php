@@ -1,4 +1,9 @@
 @extends('frontend.layouts.master')
+@if (session('success'))
+  <div class="alert alert-success" role="alert">
+      {{ session('success') }}
+  </div>
+@endif
 @section('content')
 <div class="col-sm-9 padding-right">
     <div class="features_items"><!--features_items-->

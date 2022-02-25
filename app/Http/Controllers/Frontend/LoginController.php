@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Login\postLoginRequest;
+use Illuminate\Support\Facades\Auth;
+
 
 class LoginController extends Controller
 {
@@ -11,11 +13,25 @@ class LoginController extends Controller
         return view('frontend.user.login');
     }
 
-    public function postLogin(Request $request)
+    public function postLogin(postLoginRequest $request)
     {
-       $email = $request->email;
-       $password = $request->password;
-       $remember = $request->remember; 
-       dd($email, $password, $remember);
+       $remember = false; 
+        $login = [
+            'email' => $request->email,
+            'password' => $request->password,
+            'level' => 0,
+        ];
+        if ($request->remember) {
+            $remember = true;
+        }
+        if (Auth::attempt($login, $remember)) {
+
+           return redirect('/')->with('success', 'Login success');
+        }else{
+
+           return redirect()->back()->with('error', 'Login fail');
+        }
     }
+
+
 }

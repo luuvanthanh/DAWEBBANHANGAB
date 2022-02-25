@@ -44,48 +44,66 @@
                             <div class="form-group">
                                 <label class="col-md-12">Full Name</label>
                                 <div class="col-md-12">
-                                    <input name="name" placeholder="Enter name" type="text" class="form-control form-control-line">
+                                    <input name="name" placeholder="Enter name" value="{{ old('name') }}" type="text" class="form-control form-control-line">
+                                    @error('name')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="example-email" class="col-md-12">Email</label>
                                 <div class="col-md-12">
-                                    <input type="email" placeholder="example@admin.com" class="form-control form-control-line" name="email" id="example-email">
+                                    <input type="email" placeholder="example@admin.com" value="{{ old('email') }}" class="form-control form-control-line" name="email" id="example-email">
+                                    @error('email')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group">                    
                                 <label class="col-md-12">Password</label>
                                 <div class="col-md-12">
-                                    <input value="" name="password" type="password" value="password" class="form-control form-control-line">
+                                    <input value="" name="password" value="{{ old('password') }}" type="password" value="password" class="form-control form-control-line">
+                                    @error('password')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group">                    
+                                <label class="col-md-12">Password confirmation</label>
+                                <div class="col-md-12">
+                                    <input value="" name="password_confirmation" value="{{ old('password_confirmation') }}" type="password" value="password" class="form-control form-control-line">
+                                    @error('password_confirmation')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-12">Phone No</label>
                                 <div class="col-md-12">
-                                    <input name="phone" type="text" class="form-control form-control-line">
+                                    <input name="phone" value="{{ old('phone') }}" type="text" class="form-control form-control-line">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-12">Address</label>
                                 <div class="col-md-12">
-                                    <input name="address" type="text" placeholder="123 456 7890" class="form-control form-control-line">
+                                    <input name="address" value="{{ old('address') }}" type="text" placeholder="123 456 7890" class="form-control form-control-line">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-12">Avatar</label>
                                 <div class="col-md-12">
-                                    <input name="avatar" type="file" placeholder="123 456 7890" class="form-control form-control-line">
+                                    <input name="avatar" value="{{ old('avatar') }}" type="file" placeholder="123 456 7890" class="form-control form-control-line">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-12">Select Country</label>
                                 <div class="col-sm-12">
-                                    <select name="id_country" class="form-control form-control-line">
-                                        {{-- @if (!empty($countries))
+                                    <select name="id_country" value="{{ old('id_country') }}" class="form-control form-control-line">
+                                        @if (!empty($countries))
                                             @foreach ($countries as $countryId => $country)
                                                 <option value="{{ $countryId }}">{{ $country->name }}</option>
                                             @endforeach
-                                        @endif --}}
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -100,4 +118,5 @@
             </div>
             <!-- Column -->
         </div>
-   
+    </div>
+@endsection

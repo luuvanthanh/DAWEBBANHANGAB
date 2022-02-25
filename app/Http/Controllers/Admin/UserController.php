@@ -120,10 +120,6 @@ class UserController extends Controller
 
             return redirect()->back()->with('error', 'upload profile error');
         }
-        // câu hỏi
-        // tại sao khi em bỏ trống ô phone thì nó ko update được
-        // nếu người ta ko nhập password thì nó sẽ lấy cái pass bị mã hóa thì sao người dùng 
-        // biết mà nhập vô.
     }
 
     /**

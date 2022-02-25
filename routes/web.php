@@ -4,10 +4,14 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Ajax\CommentController;
+use App\Http\Controllers\Ajax\rateController;
+use App\Http\Controllers\Frontend\AccountController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Frontend\UserController as FrontendUserController;
 use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
+use App\Http\Controllers\Frontend\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,31 +26,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 // frontend
 Route::get('/', [HomeController::class, 'index']);
 // Login
-Route::get('/home/login', [LoginController::class, 'index']);
+Route::get('/home/login', [LoginController::class, 'index'])->name('getLogin');
 Route::post('/home/login', [LoginController::class, 'postLogin'])->name('postLogin');
 // Register
-Route::get('/home/register', [FrontendUserController::class, 'index']);
+Route::get('/home/register', [FrontendUserController::class, 'index'])->name('getRegister');
 Route::post('/home/register', [FrontendUserController::class, 'register'])->name('postRegister');
 // Blog
-Route::get('/home/blog/list', [FrontendBlogController::class, 'index']);
+Route::get('/home/blog/list', [FrontendBlogController::class, 'index'])->name('blogList');
 Route::get('/home/blog/single/{id}', [FrontendBlogController::class, 'blogDetail'])->name('blogSingle');
-
-
-
-
+// Check login
+Route::post('/checklogin', [rateController::class, 'postScore'])->name('checkLogin');
+Route::post('/checkcomment', [CommentController::class, 'postComment'])->name('postComment');
+Route::post('/commentchild', [CommentController::class, 'postCommentChild'])->name('commentchild');
+// Logout
+Route::get('logout', [FrontendUserController::class, 'logout'])->name('postLogout');
+// Get Account getAccount
+Route::get('/getAccount', [AccountController::class, 'getAccount'])->name('getAccount');
+Route::put('/postAccount', [AccountController::class, 'postAccount'])->name('postAccount');
+// Get Product
+Route::get('/listProduct', [ProductController::class, 'getListProductOfMember'])->name('listProduct');
 
 // admin
 Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/admin/home', [DashboardController::class, 'index']);
     // Users
