@@ -4,6 +4,7 @@ return [
 
     'paginate_country' => 3,
     'paginate_blog' => 3,
+    'paginate_product' => 3,
 
     /*
     |--------------------------------------------------------------------------
@@ -177,6 +178,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        // Upload multifile image
+        Intervention\Image\ImageServiceProvider::class
+
 
     ],
 
@@ -232,6 +236,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        // Upload multifile image
+        'Image' => Intervention\Image\Facades\Image::class
+
 
     ],
 

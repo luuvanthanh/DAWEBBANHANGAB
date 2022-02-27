@@ -134,8 +134,6 @@
                             </form>
                         </div>
                     </li>
-                    {{-- 2 foreach --}}
-                    {{-- hiển thị ra thèn con level của comment con phải bằng với id của comment cha --}}
                     @if (!empty($getCommentChild['comment']))
                     @foreach ($getCommentChild['comment'] as $cmtChild)
                         @if ($cmtChild['level'] == $cmt['id'])

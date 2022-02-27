@@ -48,6 +48,8 @@ Route::get('/getAccount', [AccountController::class, 'getAccount'])->name('getAc
 Route::put('/postAccount', [AccountController::class, 'postAccount'])->name('postAccount');
 // Get Product
 Route::get('/listProduct', [ProductController::class, 'getListProductOfMember'])->name('listProduct');
+Route::get('/getProduct', [ProductController::class, 'getCreate'])->name('getProduct');
+Route::post('/AddProduct', [ProductController::class, 'postProduct'])->name('addProduct');
 
 // admin
 Auth::routes();

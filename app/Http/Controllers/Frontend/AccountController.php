@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\updateUserRequest;
 use App\Models\Country;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
@@ -20,7 +20,7 @@ class AccountController extends Controller
         return view('frontend.user.update', compact('user', 'countries'));
     }
 
-    public function postAccount(Request $request)
+    public function postAccount(updateUserRequest $request)
     {
         $user = User::find(Auth::user()->id);
         $data = $request->all();
