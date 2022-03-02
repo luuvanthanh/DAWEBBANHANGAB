@@ -50,6 +50,9 @@ Route::put('/postAccount', [AccountController::class, 'postAccount'])->name('pos
 Route::get('/listProduct', [ProductController::class, 'getListProductOfMember'])->name('listProduct');
 Route::get('/getProduct', [ProductController::class, 'getCreate'])->name('getProduct');
 Route::post('/AddProduct', [ProductController::class, 'postProduct'])->name('addProduct');
+Route::get('/getEditProduct/{id}', [ProductController::class, 'getProduct'])->name('editProduct');
+Route::put('/updateProduct/{id}', [ProductController::class, 'updateProduct'])->name('updateProduct');
+Route::delete('/deleteProduct/{id}', [ProductController::class, 'deleteProduct'])->name('deleteProduct');
 
 // admin
 Auth::routes();

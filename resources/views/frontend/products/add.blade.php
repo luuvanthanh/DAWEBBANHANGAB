@@ -6,6 +6,11 @@
     <h4>Add product</h4>
     <div class="card">
         <div class="card-body">
+            @if (session('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('error') }}
+                </div>
+            @endif
             <form action="{{ route('addProduct') }}" method="POST" class="form-horizontal form-material" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
@@ -66,26 +71,14 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-12">Avatar</label>
-                    <div class="input-group demo control-group lst increment" >
-                        <input type="file" name="avatar[]" class="myfrm form-control">
-                        <div class="input-group-btn"> 
-                          <button class="btn btn-success btn-success1" type="button">Add</button>
-                        </div>
+                    <label class="col-md-12">Sale value</label>
+                    <div class="col-md-12">
+                        <input value="{{ old('avatar') }}" name="avatar[]" type="file" multiple="multiple" class="form-control form-control-line">
+                        @error('avatar')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="clone hide">
-                        <div class="demo control-group lst input-group" style="margin-top:10px">
-                            <input type="file" name="avatar[]" class="myfrm form-control">
-                            <div class="input-group-btn"> 
-                            <button class="btn btn-danger btn-danger1" type="button">Remove</button>
-                            </div>
-                        </div>
-                    </div>
-                    @error('avatar')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
                 </div>
-                
                 <div class="form-group">
                     <div class="col-sm-12">
                         <button class="btn btn-success">Add product</button>
@@ -97,17 +90,6 @@
 </div>
 </section>
 @endsection
-<script type="text/javascript">
-    $(document).ready(function() {
-      $(".btn-success1").click(function(){ 
-          let lsthmtl = $(".clone").html();
-          $(".increment").after(lsthmtl);
-      });
-      $("body").on("click",".btn-danger1",function(){ 
-          $(this).parents(".demo").remove();
-      });
-    });
-</script>
 <script>
     $(document).ready(function(){
         $("#saleVale").hide();
