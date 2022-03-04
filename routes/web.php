@@ -54,6 +54,10 @@ Route::get('/getEditProduct/{id}', [ProductController::class, 'getProduct'])->na
 Route::put('/updateProduct/{id}', [ProductController::class, 'updateProduct'])->name('updateProduct');
 Route::delete('/deleteProduct/{id}', [ProductController::class, 'deleteProduct'])->name('deleteProduct');
 
+Route::get('/getDetailProduct/{id}', [ProductController::class, 'getDetailProduct'])->name('getDetailProduct');
+// Route::get('/getDetailProduct', function(){
+//     return view('frontend.products.detail');
+// })->name('getDetailProduct');
 // admin
 Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

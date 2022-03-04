@@ -14,6 +14,37 @@ use Image;
 
 class ProductController extends Controller
 {
+    public function uploadFile($arrImage, $userId)
+    {
+        $images=[];
+        if (count($arrImage) <= 3) {
+            foreach($arrImage as $image)
+            {
+                $name = time().$image->getClientOriginalName();
+                $name_2 = time().$image->getClientOriginalName();
+                $name_3 = time().$image->getClientOriginalName();
+                // kiểm tra folder đã tạo hay chưa nếu chưa thì tạo mới
+                if (!is_dir(public_path('upload/product/'.$userId.''))) {
+                    mkdir(public_path('upload/product/'.$userId.''));
+                }
+                //truy cập đến đường dẫn
+                $path = public_path('upload/product/'.$userId.'/' . $name);
+                $path2 = public_path('upload/product/'.$userId.'/' . $name_2);
+                $path3 = public_path('upload/product/'.$userId.'/' . $name_3);
+
+                // set image vào đường dẫn khi set thì set size
+                Image::make($image->getRealPath())->resize(85, 84)->save($path);
+                Image::make($image->getRealPath())->resize(329, 380)->save($path2);
+                Image::make($image->getRealPath())->save($path3);
+                
+                $images[] = $name;
+            } 
+        }else {
+            return redirect()->back()->with('error', 'Vui lòng chọn ít nhất 3 hình ảnh');
+        }
+        return $images;
+    }
+
     public function getListProductOfMember()
     {
         $products = Product::paginate(config('app.paginate_product'));
@@ -33,35 +64,10 @@ class ProductController extends Controller
     {
         $userId = Auth::user()->id;
         $dataImage = [];
+        $images = $request->file('avatar');
         if($request->hasfile('avatar'))
         {
-
-            foreach($request->file('avatar') as $image)
-            {
-                if (count($request->file('avatar')) <= 3) {
-                    $name = $image->getClientOriginalName();
-                    $name_2 = "84".$image->getClientOriginalName();
-                    $name_3 = "85".$image->getClientOriginalName();
-                    // kiểm tra folder đã tạo hay chưa nếu chưa thì tạo mới
-                    if (!is_dir(public_path('upload/product/'.$userId.''))) {
-                        mkdir(public_path('upload/product/'.$userId.''));
-                    }
-                    //truy cập đến đường dẫn
-                    $path = public_path('upload/product/'.$userId.'/' . $name);
-                    $path2 = public_path('upload/product/'.$userId.'/' . $name_2);
-                    $path3 = public_path('upload/product/'.$userId.'/' . $name_3);
-
-                    // set image vào đường dẫn khi set thì set size
-                    Image::make($image->getRealPath())->resize(85, 84)->save($path);
-                    Image::make($image->getRealPath())->resize(329, 380)->save($path2);
-                    Image::make($image->getRealPath())->save($path3);
-                    
-                    $dataImage[] = $name;
-                }else {
-                    return redirect()->back()->with('error', 'Vui lòng chọn ít nhất 3 hình ảnh');
-                }
-                
-            }
+            $dataImage = $this->uploadFile($images, $userId);
         }
         $files = json_encode($dataImage);
         $data = $request->all(); 
@@ -69,17 +75,20 @@ class ProductController extends Controller
         if (!$data['saleValue']) {
             $data['saleValue'] = 0;
         }
-        $product = Product::create([
-            'name' => $data['name'],
-            'price' => $data['price'],
-            'image' => $files,
-            'status' => $data['sale'],
-            'sale' => $data['saleValue'],
-            'user_id' => $userId,
-            'brand_id' => $data['brand_id'],
-            'category_id' => $data['category_id'],
-        ]);
-
+        if (count($images) <= 3) {
+            $product = Product::create([
+                'name' => $data['name'],
+                'price' => $data['price'],
+                'image' => $files,
+                'status' => $data['sale'],
+                'sale' => $data['saleValue'],
+                'user_id' => $userId,
+                'brand_id' => $data['brand_id'],
+                'category_id' => $data['category_id'],
+            ]);
+        }else{
+            return redirect()->back()->with('error', 'Vui lòng chọn ít nhất 3 hình ảnh');
+        }
         if ($product) {
 
             return redirect()->route('listProduct')->with('success', 'Add product success');
@@ -97,10 +106,12 @@ class ProductController extends Controller
 
         return view('frontend.products.edit', compact('product', 'categories', 'brands'));
     }
-// unset
+
     public function updateProduct(updateProductRequest $request, $id)
     {
         $userId = Auth::user()->id;
+        $array = [];
+        $arrayMerge = [];
         $product = Product::find($id);
         // Get image in database
         $images = json_decode($product->image, true);
@@ -116,39 +127,24 @@ class ProductController extends Controller
                 }
              }
         }
+        // set key của mảng lại vị trí ban đầu là 0
+        reset($images);
         $count = 0;
         if ($files != null) {
             $count = count($files);
         }
+
+        // cout mảng cũ cộng count của mảng mới
         $count = $count + count($images);   
         if ($request->hasfile('avatar')) {
             if ($count <= 3) {
-                foreach ($files as $key => $fileItem) {
-                    $name = $fileItem->getClientOriginalName();
-                    $name_2 = "84".$fileItem->getClientOriginalName();
-                    $name_3 = "85".$fileItem->getClientOriginalName();
-                    // kiểm tra folder đã tạo hay chưa nếu chưa thì tạo mới
-                    if (!is_dir(public_path('upload/product/'.$userId.''))) {
-                        mkdir(public_path('upload/product/'.$userId.''));
-                    }
-                    //truy cập đến đường dẫn
-                    $path = public_path('upload/product/'.$userId.'/' . $name);
-                    $path2 = public_path('upload/product/'.$userId.'/' . $name_2);
-                    $path3 = public_path('upload/product/'.$userId.'/' . $name_3);
-    
-                    // set image vào đường dẫn khi set thì set size
-                    Image::make($fileItem->getRealPath())->resize(85, 84)->save($path);
-                    Image::make($fileItem->getRealPath())->resize(329, 380)->save($path2);
-                    Image::make($fileItem->getRealPath())->save($path3);
-    
-                    $images[] = $name;
-                }
+                $array = $this->uploadFile($files, $userId);
             }else{
-                return redirect()->back()->with('error', 'Vui lòng chọn ít nhất 3 hình ảnh');
+                return redirect()->back()->with('error', 'Hình ảnh phải nhỏ hơn 3');
             }
         }
-        $images = json_encode($images);
-        // dd($images);
+        $arrayMerge = array_merge($images, $array);
+        $images = json_encode($arrayMerge);
         if ($product) {
             $product->update([
                 $product->name = $data['name'],
@@ -159,6 +155,8 @@ class ProductController extends Controller
                 $product->user_id = $userId,
                 $product->category_id = $data['category_id'],
                 $product->brand_id = $data['brand_id'],
+
+              
             ]);
             return redirect()->route('listProduct')->with('success', 'Update product success');
         }else {
@@ -173,4 +171,13 @@ class ProductController extends Controller
 
         return redirect()->route('listProduct')->with('success', 'Delete product success');
     }
+
+    public function getDetailProduct($id)
+    {
+        if (url()->current() == "http://localhost/LARAVEL/laravel-8/public/getDetailProduct/36") {
+            dd(1);
+        }
+        return view('frontend.products.detail');
+    }
+
 }

@@ -19,7 +19,15 @@
     <div class="container">
         <div class="row">
             <!-- sidebar -->
-            @include('frontend.layouts.sidebar')
+            @if (url()->current() == "http://localhost/LARAVEL/laravel-8/public/getAccount")
+                @include('frontend.layouts.sidebar-account')
+            @else
+                @if (url()->current() == "http://localhost/LARAVEL/laravel-8/public/home/login")
+                    
+                @else
+                    @include('frontend.layouts.sidebar')
+            @endif
+            @endif
 
             <!-- content -->
             @yield('content')

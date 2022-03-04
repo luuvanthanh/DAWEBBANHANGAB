@@ -275,25 +275,25 @@ $(document).ready(function(){
     //     let avatarUser = "{{ Auth::user() ? Auth::user()->avatar : null }}";
     //     let checkLogin = "{{ Auth::check() }}";
     //     if (checkLogin) {
-    //         $.ajax({
-    //         url: "{{ route('postComment') }}",
-    //         method: "POST",
-    //         data: {
-    //             idBlog: idBlog,
-    //             idUser: idUser,
-    //             comment: comment,
-    //             nameUser: nameUser,
-    //             avatarUser: avatarUser,
-    //         },
-    //         success:function(response){
-    //             if (response.success) {
-    //                 $("#message").html(response.success);
-    //                 location.reload();
-    //             }else {
-    //                 $("#message").html(response.mesage);
-    //             }
-    //         },
-    //         });
+            // $.ajax({
+            // url: "{{ route('postComment') }}",
+            // method: "POST",
+            // data: {
+            //     idBlog: idBlog,
+            //     idUser: idUser,
+            //     comment: comment,
+            //     nameUser: nameUser,
+            //     avatarUser: avatarUser,
+            // },
+            // success:function(response){
+            //     if (response.success) {
+            //         $("#message").html(response.success);
+            //         location.reload();
+            //     }else {
+            //         $("#message").html(response.mesage);
+            //     }
+            // },
+            // });
     //     }else {
     //         $("#notification-cmt").text('Vui lòng đăng nhập');
     //     }

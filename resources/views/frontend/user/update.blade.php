@@ -1,4 +1,4 @@
-@extends('frontend.layouts.master-account')
+@extends('frontend.layouts.master')
 @section('content')
 <div class="page-breadcrumb">
 <div class="container">

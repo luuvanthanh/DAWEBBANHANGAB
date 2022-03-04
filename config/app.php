@@ -5,6 +5,7 @@ return [
     'paginate_country' => 3,
     'paginate_blog' => 3,
     'paginate_product' => 3,
+    'paginate_home_product' => 6,
 
     /*
     |--------------------------------------------------------------------------

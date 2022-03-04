@@ -105,7 +105,7 @@
                 <div class="form-group">
                     <label class="col-md-12">Sale value</label>
                     <div class="col-md-12">
-                        <input value="{{ old('avatar') }}" name="avatar[]" type="file" multiple="multiple" class="form-control form-control-line">                       
+                        <input  name="avatar[]" type="file" multiple="multiple" class="form-control form-control-line">                       
                         <div class="image-edit-product">
                             @if (!empty($product->image))
                             @php

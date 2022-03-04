@@ -26,7 +26,6 @@ class updateProductRequest extends FormRequest
         return [
             'name' => 'required',
             'price' => 'required',
-            'avatar' => 'required',
             'avatar.*' => 'image|mimes:jpeg,png,jpg,gif|max:1024',
         ];
     }
