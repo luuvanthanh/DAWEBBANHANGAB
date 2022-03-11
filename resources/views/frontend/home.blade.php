@@ -9,10 +9,15 @@
 <div class="col-sm-9 padding-right">
     <div class="features_items"><!--features_items-->
         <h2 class="title text-center">Features Items</h2>
+        <div class="alert alert-success" role="alert">
+            Cập nhật giỏ hàng thành công
+        </div>
         @if (!empty($products))
             @foreach ($products as $pro)
             @php
                 $images = json_decode($pro->image, true);
+                $id = $pro->user_id;
+                // dd($id)
             @endphp
             <div class="col-sm-4">
                 <div class="product-image-wrapper">
@@ -20,13 +25,11 @@
                         <input class="idProduct" type="hidden" value="{{ $pro->id }}">
                             <div class="productinfo text-center">
                                 @foreach ($images as $img)
-                                    @if (Auth::user())
-                                        <img style="
-                                        width: 120px;
-                                        height: 120px;
-                                        padding: 10px;
-                                        " src="{{ asset('upload/product/'.Auth::user()->id.'/'. $img.'') }}" alt="" />
-                                    @endif
+                                    <img style="
+                                    width: 120px;
+                                    height: 120px;
+                                    padding: 10px;
+                                    " src="{{ asset('upload/product/'.$id.'/'. $img.'') }}" alt="" />
                                     @php
                                         break;
                                     @endphp
@@ -39,7 +42,7 @@
                                 <div class="overlay-content">
                                     <h2>${{ $pro->price }}</h2>
                                     <p>{{ $pro->name }}</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                    <a class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                 </div>
                             </div>
                     </div>
@@ -595,13 +598,31 @@
     
 </div>
 @endsection
-{{-- <script>
-    function passId(id){
-        window.location = "http://localhost/LARAVEL/laravel-8/public/getDetailProduct/"+id;
-    };
+<script>
+    // name
+    // image
+    // price
+    // id
+    // quantity
     $(document).ready(function(){
-        $("div.product-overlay").click(function(){
-            let id = $(this).closest("div.single-products").find('input.idProduct').val();
+        $(".alert-success").hide();
+        $("a.add-to-cart").click(function(){
+            let id = $(this).closest(".single-products").find(".idProduct").val();
+            let quantity = $("span.quantity-cart").text();
+            quantity++;
+            $("span.quantity-cart").text(quantity)
+            $.ajax({
+                url: "{{ route('postCart') }}",
+                method: "POST",
+                data: {
+                    id: id,
+                },
+                success:function(response){
+                    if (response.success) {
+                        $(".alert-success").show();
+                    }
+                }
+            })
         });
     });
-</script> --}}
+</script>

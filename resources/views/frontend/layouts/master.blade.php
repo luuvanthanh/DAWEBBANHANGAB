@@ -22,7 +22,7 @@
             @if (url()->current() == "http://localhost/LARAVEL/laravel-8/public/getAccount")
                 @include('frontend.layouts.sidebar-account')
             @else
-                @if (url()->current() == "http://localhost/LARAVEL/laravel-8/public/home/login")
+                @if (url()->current() == "http://localhost/LARAVEL/laravel-8/public/getCart")
                     
                 @else
                     @include('frontend.layouts.sidebar')

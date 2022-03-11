@@ -11,6 +11,8 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Frontend\UserController as FrontendUserController;
 use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
+use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -53,12 +55,17 @@ Route::post('/AddProduct', [ProductController::class, 'postProduct'])->name('add
 Route::get('/getEditProduct/{id}', [ProductController::class, 'getProduct'])->name('editProduct');
 Route::put('/updateProduct/{id}', [ProductController::class, 'updateProduct'])->name('updateProduct');
 Route::delete('/deleteProduct/{id}', [ProductController::class, 'deleteProduct'])->name('deleteProduct');
-
 Route::get('/getDetailProduct/{id}', [ProductController::class, 'getDetailProduct'])->name('getDetailProduct');
-// Route::get('/getDetailProduct', function(){
-//     return view('frontend.products.detail');
-// })->name('getDetailProduct');
-// admin
+// Cart
+Route::get('/getCart', [CartController::class , 'getCart'])->name('getCart');
+Route::post('/postCart', [CartController::class , 'postCart'])->name('postCart');
+Route::post('/postUpQuantityCart', [CartController::class , 'UpQuantity'])->name('UpQuantity');
+Route::post('/postDownQuantityCart', [CartController::class , 'DownQuantity'])->name('DownQuantity');
+Route::post('/posDeleteCart', [CartController::class , 'DeleteCart'])->name('DeleteCart');
+// Check out
+Route::get('/getCheckout', [CheckoutController::class, 'getCheckout'])->name('getCheckout');
+
+
 Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth']], function() {

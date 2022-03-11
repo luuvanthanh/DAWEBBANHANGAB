@@ -174,10 +174,9 @@ class ProductController extends Controller
 
     public function getDetailProduct($id)
     {
-        if (url()->current() == "http://localhost/LARAVEL/laravel-8/public/getDetailProduct/36") {
-            dd(1);
-        }
-        return view('frontend.products.detail');
+        $product = Product::with('brand')->find($id);
+
+        return view('frontend.products.detail', compact('product'));
     }
 
 }

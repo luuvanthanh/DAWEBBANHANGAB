@@ -14,14 +14,10 @@
     @include('frontend.layouts.header')
 
     <!-- slider -->
-    @include('frontend.layouts.slider')
+    {{-- @include('frontend.layouts.slider') --}}
 
     <div class="container">
         <div class="row">
-            <!-- sidebar -->
-            @include('frontend.layouts.sidebar-account')
-
-            <!-- content -->
             @yield('content')
         </div>
     </div>

@@ -4,7 +4,6 @@
 <script src="{{ asset('frontend/js/price-range.js') }}"></script>
 <script src="{{ asset('frontend/js/jquery.scrollUp.min.js') }}"></script>
 <script src="{{ asset('frontend/js/main.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.prettyPhoto.js') }}"></script>
 <!-- Rate -->
 <script src="{{ asset('rate/js/jquery-1.9.1.min.js') }}"></script>
 <script src="{{ asset('rate/js/rate.js') }}"></script>

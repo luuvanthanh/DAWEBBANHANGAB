@@ -1,3 +1,4 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 @extends('frontend.layouts.master')
 @section('content')
 <section>
@@ -7,8 +8,21 @@
                 <div class="product-details"><!--product-details-->
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="{{ asset('frontend/images/product-details/1.jpg') }}" alt="" />
-                            <a href="images/product-details/1.jpg" rel="prettyPhoto"><h3>ZOOM</h3></a>
+                            @php
+                                $images = json_decode($product->image, true);
+                            @endphp
+                            @foreach ($images as $img)
+                                <img id="imgApply" src="{{ asset('upload/product/'.$product->user_id.'/'.$img.'') }}" alt="" />
+                                @php
+                                    break;
+                                @endphp
+                            @endforeach
+                            @foreach ($images as $img)
+                                <a class="zoom-image" href="{{ asset('upload/product/'.$product->user_id.'/'.$images[0].'') }}" rel="prettyPhoto"><h3>ZOOM</h3></a>
+                                @php
+                                    break;
+                                @endphp
+                            @endforeach
                             
                         </div>
                         <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -16,19 +30,19 @@
                               <!-- Wrapper for slides -->
                                 <div class="carousel-inner">
                                     <div class="item active">
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar1.jpg') }}" alt=""></a>
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar2.jpg') }}" alt=""></a>
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar3.jpg') }}" alt=""></a>
+                                        @foreach ($images as $img)
+                                            <a ><img class="imgDetail" style="width:85px; heigth:84px" src="{{ asset('upload/product/'.$product->user_id.'/'.$img.'') }}" alt=""></a>
+                                        @endforeach
                                     </div>
                                     <div class="item">
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar1.jpg') }}" alt=""></a>
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar2.jpg') }}" alt=""></a>
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar3.jpg') }}" alt=""></a>
+                                        @foreach ($images as $img)
+                                            <a ><img class="imgDetail" style="width:85px; heigth:84px" src="{{ asset('upload/product/'.$product->user_id.'/'.$img.'') }}" alt=""></a>
+                                        @endforeach
                                     </div>
                                     <div class="item">
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar1.jpg') }}" alt=""></a>
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar2.jpg') }}" alt=""></a>
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar3.jpg') }}" alt=""></a>
+                                        @foreach ($images as $img)
+                                            <a ><img class="imgDetail" style="width:85px; heigth:84px" src="{{ asset('upload/product/'.$product->user_id.'/'.$img.'') }}" alt=""></a>
+                                        @endforeach
                                     </div>
                                     
                                 </div>
@@ -46,13 +60,13 @@
                     <div class="col-sm-7">
                         <div class="product-information"><!--/product-information-->
                             <img src="{{ asset('frontend/images/product-details/new.jpg') }}" class="newarrival" alt="" />
-                            <h2>Anne Klein Sleeveless Colorblock Scuba</h2>
+                            <h2>{{ $product->name }}</h2>
                             <p>Web ID: 1089772</p>
                             <img src="{{ asset('frontend/images/product-details/rating.png') }}" alt="" />
                             <span>
-                                <span>US $59</span>
+                                <span>US ${{ $product->price }}</span>
                                 <label>Quantity:</label>
-                                <input type="text" value="3" />
+                                <input type="text" value="1" />
                                 <button type="button" class="btn btn-fefault cart">
                                     <i class="fa fa-shopping-cart"></i>
                                     Add to cart
@@ -60,7 +74,7 @@
                             </span>
                             <p><b>Availability:</b> In Stock</p>
                             <p><b>Condition:</b> New</p>
-                            <p><b>Brand:</b> E-SHOPPER</p>
+                            <p><b>Brand:</b> {{ $product->brand->name }}</p>
                             <a href=""><img src="{{ asset('frontend/images/product-details/share.png') }}" class="share img-responsive"  alt="" /></a>
                         </div><!--/product-information-->
                     </div>
@@ -352,3 +366,15 @@
     </div>
 </section>
 @endsection
+<script src="{{ asset('frontend/js/jquery.prettyPhoto.js') }}"></script>
+<script>
+    $(document).ready(function(){
+        $("img.imgDetail").click(function(){
+            let src = $(this).attr("src");
+            $("img#imgApply").attr('src', src);
+            $("a.zoom-image").attr('href', src);
+        });
+
+        $("a[rel^='prettyPhoto']").prettyPhoto();
+    });
+</script>

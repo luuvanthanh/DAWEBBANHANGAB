@@ -49,7 +49,7 @@
                                     height: 100px;
                                     padding: 10px;
                                     "
-                                    src="{{ asset('upload/product/'.Auth::user()->id.'/'. $img.'') }}" alt=""
+                                    src="{{ asset('upload/product/'.$pro->user_id.'/'. $img.'') }}" alt=""
                                 >
                                 </td>
                                 @php

@@ -63,8 +63,18 @@
                                 <li><a href="{{ route('getAccount') }}"><i class="fa fa-user"></i> Account</a></li>
                             @endif
                             <li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li><a href="{{ route('getCheckout') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                            @php
+                                $sessions = session()->has('cart');
+                                $number = 0;
+                                if ($sessions) {
+                                    $data = array_values(session()->get('cart'));
+                                    foreach ($data as $key => $item) {
+                                        $number += $item['quantity'];
+                                    }
+                                }
+                            @endphp
+                            <li><a href="{{ route('getCart') }}"><i class="fa fa-shopping-cart"></i>Cart: <span class="quantity-cart">{{$number}}</span></a></li>
                             @if (Auth::user())
                                 <li><a href="{{ route('postLogout') }}"><i class="fa fa-lock"></i> Logout</a></li>
                             @endif
@@ -97,7 +107,7 @@
                                 <ul role="menu" class="sub-menu">
                                     <li><a href="shop.html">Products</a></li>
                                     <li><a href="product-details.html">Product Details</a></li> 
-                                    <li><a href="checkout.html">Checkout</a></li> 
+                                    <li><a href="">Checkout</a></li> 
                                     <li><a href="cart.html">Cart</a></li> 
                                     <li><a href="login.html">Login</a></li> 
                                 </ul>
