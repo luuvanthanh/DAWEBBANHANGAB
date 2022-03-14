@@ -14,6 +14,8 @@ use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\ProductController;
+use App\Http\Controllers\Frontend\SearchController;
+use App\Http\Controllers\frontend\sendMailController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -64,6 +66,12 @@ Route::post('/postDownQuantityCart', [CartController::class , 'DownQuantity'])->
 Route::post('/posDeleteCart', [CartController::class , 'DeleteCart'])->name('DeleteCart');
 // Check out
 Route::get('/getCheckout', [CheckoutController::class, 'getCheckout'])->name('getCheckout');
+// send mail register
+Route::post('/sendMail', [CheckoutController::class, 'sendMail'])->name('sendMail');
+// Search
+Route::post('/getSearchName', [SearchController::class, 'searchName'])->name('searchName');
+Route::get('/searchAll', [SearchController::class, 'getSearchAll'])->name('getSearchAll');
+Route::post('/searchAll', [SearchController::class, 'searchAllValue'])->name('searchAllValue');
 
 
 Auth::routes();

@@ -42,7 +42,6 @@ class UserController extends Controller
             if (!empty($file)) {
                 $file->move('upload/avatar', $file->getClientOriginalName());
             }
-            // session(['email' => $request->email, 'password' => $request->password]);
 
             return redirect()->route('getLogin')->with('success', 'Register user success');
         } else {

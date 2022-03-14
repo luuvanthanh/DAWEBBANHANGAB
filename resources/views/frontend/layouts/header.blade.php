@@ -1,3 +1,4 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
@@ -120,12 +121,17 @@
                             </li> 
                             <li><a href="404.html">404</a></li>
                             <li><a href="contact-us.html">Contact</a></li>
+                            <li><a href="{{ route('getSearchAll') }}">Search advanced</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
+                        <form action="{{ route('searchName') }}" method="POST">
+                            @csrf
+                            <input class="search" type="text" name="valueSearch" placeholder="Search"/>
+                            <button class="btn btn-secondary">Search</button>
+                        </form>
                     </div>
                 </div>
             </div>
