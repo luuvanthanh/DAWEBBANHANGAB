@@ -39,7 +39,7 @@ class CheckoutController extends Controller
         ]);
         if ($history) {
             SendMail::dispatch();
-
+            session()->forget('cart');
             return response()->json([
                 'success' => 'Bạn đã đặt hàng thành công',
             ]);

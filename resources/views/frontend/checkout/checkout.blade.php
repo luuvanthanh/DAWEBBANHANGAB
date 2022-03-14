@@ -197,6 +197,7 @@
     $(document).ready(function(){
         $(".alert-success").hide();
         $('a.btn-primary').click(function(){
+            $(".cart_info").remove();
             $.ajax({
                 url: "{{ route('sendMail') }}",
                 method: "POST",
