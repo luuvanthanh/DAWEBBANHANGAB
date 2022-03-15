@@ -15,7 +15,7 @@
 
     <!-- slider -->
     {{-- @include('frontend.layouts.slider') --}}
-
+    @include('frontend.layouts.sidebar-account')
     <div class="container">
         <div class="row">
             @yield('content')
