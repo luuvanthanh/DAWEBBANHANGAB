@@ -633,11 +633,6 @@
     </div>
 @endsection
 <script>
-    // name
-    // image
-    // price
-    // id
-    // quantity
     $(document).ready(function() {
         $(".alert-success").hide();
         $("a.add-to-cart").click(function() {
@@ -677,7 +672,6 @@
                             img = img.split(',');
                             img = img[0].replace('"', '');
                             img = img.replace('"', '');
-                            console.log(item.id);
                             html += 
                                 "<div class='col-sm-4'>" +
                                     "<div class='product-image-wrapper'>" +
@@ -692,7 +686,7 @@
                                                 "<div class='overlay-content'>" +
                                                     "<h2>$"+ item.price +"</h2>" +
                                                     "<p>"+ item.name +"</p>" +
-                                                    "<a href='#' class='btn btn-default add-to-cart'><i class='fa fa-shopping-cart'></i>Add to cart</a>" +
+                                                    "<a class='btn btn-default add-to-cart'><i class='fa fa-shopping-cart'></i>Add to cart</a>" +
                                                 "</div>" +
                                             "</div>" +
                                         "</div>" +
