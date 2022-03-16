@@ -43,8 +43,8 @@
         <button type="submit" class="btn btn-info">Search</button>
     </form>
 </div>
-@if (!empty($products))
-@foreach ($products as $pro)
+@if (!empty($results))
+@foreach ($results as $pro)
 @php
     $images = json_decode($pro->image, true);
     $id = $pro->user_id;

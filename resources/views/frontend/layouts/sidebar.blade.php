@@ -1,3 +1,4 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div class="col-sm-3">
     <div class="left-sidebar">
         <h2>Category</h2>
@@ -126,8 +127,8 @@
         <div class="price-range"><!--price-range-->
             <h2>Price Range</h2>
             <div class="well text-center">
-                 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
-                 <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
+                 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="2500" data-slider-step="5" data-slider-value="[500,1000]" id="sl2" ><br />
+                 <b class="pull-left">$ 0</b> <b class="pull-right">$ 2500</b>
             </div>
         </div><!--/price-range-->
         
@@ -137,3 +138,20 @@
     
     </div>
 </div>
+{{-- <script>
+    $(document).ready(function(){
+        $("div.text-center").click(function(){
+            let price = $('div.tooltip-inner').text();
+            $.ajax({
+                url: "{{ route('searchPrice') }}",
+                method: "POST",
+                data: {
+                    price: price
+                },
+                success:function(response){
+                    console.log(response.products);
+                }
+            });
+        });
+    });   
+</script> --}}

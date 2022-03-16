@@ -32,37 +32,38 @@ class SearchController extends Controller
         $products = '';
         $categories = Category::pluck('name', 'id');
         $brands = Brand::pluck('name', 'id');
+        $products = Product::orderByDesc('created_at');
         if ($request->valueSearch) {
-            $products = Product::where('name', 'LIKE', '%' . $request->valueSearch . '%')->get();
+            echo 1;
+            $products->where('name', 'LIKE', '%' . $request->valueSearch . '%');
         }
 
         if ($request->category != 'category') {
-            $products = Product::where('category_id', $request->category)->get();
+            echo 2;
+            $products->where('category_id', $request->category);
         }
 
         if ($request->brand != 'brand') {
-            $products = Product::where('brand_id', $request->brand)->get();
+            echo 3;
+            $products->where('brand_id', $request->brand);
         }
-
-        if ($request->valueSearch && $request->category != 'category') {
-            $products = Product::where('name', 'LIKE', '%' . $request->valueSearch . '%')
-                ->where('category_id', $request->category)
-                ->get();
-        }
-        if ($request->valueSearch && $request->brand != 'brand') {
-            $products = Product::where('name', 'LIKE', '%' . $request->valueSearch . '%')
-                ->where('brand_id', $request->brand)
-                ->get();
-        }
-        if ($request->category != 'category' && $request->brand != 'brand') {
-            $products = Product::where('category_id', $request->category)
-                ->where('brand_id', $request->brand)
-                ->get();
-        }
-        if ($products != null) {
-            return view('frontend.search.search-all', compact('products', 'categories', 'brands'));
+        
+        $results = $products->get();
+       
+        if ($results != null) {
+            return view('frontend.search.search-all', compact('results', 'categories', 'brands'));
         }else {
             return redirect()->back()->with('thongbao', 'Không có sản phẩm nào được tìm thấy');
         }
+    }
+
+    public function searchPrice(Request $request)
+    {
+        $price = $request->price;
+        $arPrice = explode(' ' ,$price);
+        $products = Product::whereBetween('price', [$arPrice[0], $arPrice[2]])->get();
+        return response()->json([
+            'products' => $products,
+        ]);
     }
 }

@@ -72,6 +72,7 @@ Route::post('/sendMail', [CheckoutController::class, 'sendMail'])->name('sendMai
 Route::post('/getSearchName', [SearchController::class, 'searchName'])->name('searchName');
 Route::get('/searchAll', [SearchController::class, 'getSearchAll'])->name('getSearchAll');
 Route::post('/searchAll', [SearchController::class, 'searchAllValue'])->name('searchAllValue');
+Route::post('/searchPrice', [SearchController::class, 'searchPrice'])->name('searchPrice');
 
 
 Auth::routes();
